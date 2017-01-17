@@ -4,7 +4,6 @@ import reactivemongo.bson._
 import shapeless._
 import shapeless.syntax.singleton._
 import shapeless.record.Record
-import resolvers.Auto.autoWriteKeyResolver
 
 import org.scalatest.{FunSuite, Matchers}
 
@@ -16,6 +15,8 @@ class RecordSerializationTests extends FunSuite with Matchers {
   type Book = Record.`'author -> String, 'title -> String, 'id -> Int, 'price -> Double`.T
 
   test("Serialize record instance") {
+    import resolvers.Auto.autoKeyResolver
+
     val book =
       ('author ->> "Benjamin Pierce") ::
       ('title  ->> "Types and Programming Languages") ::
@@ -27,6 +28,25 @@ class RecordSerializationTests extends FunSuite with Matchers {
     implicitly[BSONDocumentWriter[Book]].write(book) shouldBe BSONDocument(
       "author" -> BSONString("Benjamin Pierce"),
       "title" -> BSONString("Types and Programming Languages"),
+      "id" -> BSONInteger(262162091),
+      "price" -> BSONDouble(44.11)
+    )
+  }
+
+  test("Serialize with custom KeyResolver") {
+    implicit val keyRes = resolvers.MapBased.makeResolver(Map('title -> 'caption))
+
+    val book =
+      ('author ->> "Benjamin Pierce") ::
+        ('title  ->> "Types and Programming Languages") ::
+        ('id     ->>  262162091) ::
+        ('price  ->>  44.11) ::
+        HNil
+
+
+    implicitly[BSONDocumentWriter[Book]].write(book) shouldBe BSONDocument(
+      "author" -> BSONString("Benjamin Pierce"),
+      "caption" -> BSONString("Types and Programming Languages"),
       "id" -> BSONInteger(262162091),
       "price" -> BSONDouble(44.11)
     )
