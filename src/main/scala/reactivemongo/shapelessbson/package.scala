@@ -7,11 +7,11 @@ import shapeless.labelled._
 
 package object shapelessbson {
   trait WriteKeyResolver {
-    def resolve(field: String): String
+    def resolve(field: Symbol): String
   }
 
   trait ReadKeyResolver {
-    def resolve(field: String): String
+    def resolve(field: Symbol): String
   }
 
   implicit val hNilWriter: BSONDocumentWriter[HNil] = new BSONDocumentWriter[HNil] {
@@ -25,7 +25,7 @@ package object shapelessbson {
     resolver: WriteKeyResolver
   ): BSONDocumentWriter[FieldType[K, H] :: T] = new BSONDocumentWriter[FieldType[K, H] :: T] {
     override def write(hl: FieldType[K, H] :: T) = {
-      BSONDocument(resolver.resolve(witness.value.name) -> hWriter.value.write(hl.head)) ++ tWriter.write(hl.tail)
+      BSONDocument(resolver.resolve(witness.value) -> hWriter.value.write(hl.head)) ++ tWriter.write(hl.tail)
     }
   }
 
@@ -40,7 +40,7 @@ package object shapelessbson {
     resolver: ReadKeyResolver
   ): BSONDocumentReader[FieldType[K, H] :: T] = new BSONDocumentReader[FieldType[K, H] :: T] {
     override def read(bson: BSONDocument) = {
-      val fieldName = resolver.resolve(witness.value.name)
+      val fieldName = resolver.resolve(witness.value)
       bson.get(fieldName) match {
         case Some(bsv) =>
           val hv = hReader.value.widenReader.readTry(bsv).get
