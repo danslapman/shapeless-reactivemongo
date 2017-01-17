@@ -2,9 +2,15 @@ name := "reactivemongo-shapeless"
 
 version := "1.0"
 
-scalaVersion := "2.11.8"
+scalaVersion := Versions.scala
 
-scalacOptions += "-Xexperimental"
+lazy val extraScalacOptions: Seq[String] =
+  CrossVersion.partialVersion(Versions.scala) match {
+    case Some((2, y)) if y == 11 => Seq("-Xexperimental")
+    case _ => Seq()
+  }
+
+scalacOptions ++= extraScalacOptions
 
 libraryDependencies ++= Seq(
   "org.scala-lang" % "scala-reflect" % scalaVersion.value,
