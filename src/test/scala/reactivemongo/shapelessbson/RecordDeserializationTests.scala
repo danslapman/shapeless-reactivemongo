@@ -3,6 +3,7 @@ package reactivemongo.shapelessbson
 import reactivemongo.bson._
 import shapeless._
 import shapeless.record._
+import resolvers.Auto.autoReadKeyResolver
 
 import org.scalatest.{FunSuite, Matchers}
 

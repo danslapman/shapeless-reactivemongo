@@ -6,6 +6,14 @@ import shapeless._
 import shapeless.labelled._
 
 package object shapelessbson {
+  trait WriteKeyResolver {
+    def resolve(field: String): String
+  }
+
+  trait ReadKeyResolver {
+    def resolve(field: String): String
+  }
+
   implicit val hNilWriter: BSONDocumentWriter[HNil] = new BSONDocumentWriter[HNil] {
     override def write(t: HNil) = BSONDocument.empty
   }
@@ -13,10 +21,11 @@ package object shapelessbson {
   implicit def recordWriter[K <: Symbol, H, T <: HList](implicit
     witness: Witness.Aux[K],
     hWriter: Lazy[BSONWriter[H, _ <: BSONValue]],
-    tWriter: BSONDocumentWriter[T]
+    tWriter: BSONDocumentWriter[T],
+    resolver: WriteKeyResolver
   ): BSONDocumentWriter[FieldType[K, H] :: T] = new BSONDocumentWriter[FieldType[K, H] :: T] {
     override def write(hl: FieldType[K, H] :: T) = {
-      BSONDocument(witness.value.name -> hWriter.value.write(hl.head)) ++ tWriter.write(hl.tail)
+      BSONDocument(resolver.resolve(witness.value.name) -> hWriter.value.write(hl.head)) ++ tWriter.write(hl.tail)
     }
   }
 
@@ -27,10 +36,11 @@ package object shapelessbson {
   implicit def recordReader[K <: Symbol, H, T <: HList](implicit
     witness: Witness.Aux[K],
     hReader: Lazy[BSONReader[_ <: BSONValue, H]],
-    tReader: BSONDocumentReader[T]
+    tReader: BSONDocumentReader[T],
+    resolver: ReadKeyResolver
   ): BSONDocumentReader[FieldType[K, H] :: T] = new BSONDocumentReader[FieldType[K, H] :: T] {
     override def read(bson: BSONDocument) = {
-      val fieldName = witness.value.name
+      val fieldName = resolver.resolve(witness.value.name)
       bson.get(fieldName) match {
         case Some(bsv) =>
           val hv = hReader.value.widenReader.readTry(bsv).get

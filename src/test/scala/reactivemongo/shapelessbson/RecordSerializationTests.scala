@@ -4,6 +4,7 @@ import reactivemongo.bson._
 import shapeless._
 import shapeless.syntax.singleton._
 import shapeless.record.Record
+import resolvers.Auto.autoWriteKeyResolver
 
 import org.scalatest.{FunSuite, Matchers}
 
