@@ -8,7 +8,6 @@ import reactivemongo.bson._
 import shapeless._
 import shapeless.record._
 import reactivemongo.shapelessbson._
-import resolvers.Auto._
 
 type Book = Record.`'author -> String, 'title -> String, 'id -> Int, 'price -> Double`.T
 
@@ -30,11 +29,11 @@ import reactivemongo.bson._
 import shapeless._
 import shapeless.record._
 import reactivemongo.shapelessbson._
-import resolvers.MapBased.makeResolver
+import resolvers.MapBasedResolver
 
 type Book = Record.`'author -> String, 'title -> String, 'id -> Int, 'price -> Double`.T
 
-implicit val resolver = makeResolver(Map('title -> 'caption))
+implicit val resolver = new MapBasedResolver(Map('title -> 'caption))
 
 val bso = BSONDocument(
     "author" -> BSONString("Benjamin Pierce"),

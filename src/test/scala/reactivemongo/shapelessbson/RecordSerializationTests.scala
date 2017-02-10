@@ -15,8 +15,6 @@ class RecordSerializationTests extends FunSuite with Matchers {
   type Book = Record.`'author -> String, 'title -> String, 'id -> Int, 'price -> Double`.T
 
   test("Serialize record instance") {
-    import resolvers.Auto.autoKeyResolver
-
     val book =
       ('author ->> "Benjamin Pierce") ::
       ('title  ->> "Types and Programming Languages") ::
@@ -34,7 +32,7 @@ class RecordSerializationTests extends FunSuite with Matchers {
   }
 
   test("Serialize with custom KeyResolver") {
-    implicit val keyRes = resolvers.MapBased.makeResolver(Map('title -> 'caption))
+    implicit val keyRes = new resolvers.MapBasedResolver(Map('title -> 'caption))
 
     val book =
       ('author ->> "Benjamin Pierce") ::

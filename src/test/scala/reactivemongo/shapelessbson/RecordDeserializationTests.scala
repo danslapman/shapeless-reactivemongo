@@ -14,8 +14,6 @@ class RecordDeserializationTests extends FunSuite with Matchers {
   type Book = Record.`'author -> String, 'title -> String, 'id -> Int, 'price -> Double`.T
 
   test("Deserialize record type") {
-    import resolvers.Auto.autoKeyResolver
-
     val bso = BSONDocument(
       "author" -> BSONString("Benjamin Pierce"),
       "title" -> BSONString("Types and Programming Languages"),
@@ -31,7 +29,7 @@ class RecordDeserializationTests extends FunSuite with Matchers {
   }
 
   test("Deserialize with custom KeyResolver") {
-    implicit val keyRes = resolvers.MapBased.makeResolver(Map('title -> 'caption))
+    implicit val keyRes = new resolvers.MapBasedResolver(Map('title -> 'caption))
 
     val bso = BSONDocument(
       "author" -> BSONString("Benjamin Pierce"),
