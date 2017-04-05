@@ -49,4 +49,24 @@ class RecordSerializationTests extends FunSuite with Matchers {
       "price" -> BSONDouble(44.11)
     )
   }
+
+  test("Serialize record with some optional value") {
+    type Rec = Record.`'from -> Option[Int]`.T
+
+    val rec = Record(from = Some(1))
+
+    implicitly[BSONDocumentWriter[Rec]].write(rec) shouldBe BSONDocument(
+      "from" -> BSONArray(BSONInteger(1))
+    )
+  }
+
+  test("Serialize record with none optional value") {
+    type Rec = Record.`'from -> Option[Int]`.T
+
+    val rec = Record(from = None: Option[Int])
+
+    implicitly[BSONDocumentWriter[Rec]].write(rec) shouldBe BSONDocument(
+      "from" -> BSONArray()
+    )
+  }
 }
