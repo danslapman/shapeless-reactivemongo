@@ -2,7 +2,9 @@ name := "reactivemongo-shapeless"
 
 version := "1.0"
 
-scalaVersion := "2.11.8"
+scalaVersion := "2.12.2"
+
+crossScalaVersions := Seq("2.11.11", "2.12.2")
 
 scalacOptions ++= {
   CrossVersion.partialVersion(scalaVersion.value) match {
@@ -13,7 +15,7 @@ scalacOptions ++= {
 
 libraryDependencies ++= Seq(
   "com.chuusai" %% "shapeless" % "2.3.2",
-  "org.reactivemongo" %% "reactivemongo-bson" % "0.12.1",
+  "org.reactivemongo" %% "reactivemongo-bson" % "0.12.4",
   "org.scalatest" %% "scalatest" % "3.0.1" % Test
 )
 
