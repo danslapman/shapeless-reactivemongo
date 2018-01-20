@@ -1,4 +1,6 @@
-name := "reactivemongo-shapeless"
+name := "shapeless-reactivemongo"
+
+organization := "danslapman"
 
 version := "1.0"
 
@@ -19,4 +21,10 @@ libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "3.0.4" % Test
 )
 
-lazy val reactivemongo_shapeless = project in file(".")
+lazy val `shapeless-reactivemongo` = project in file(".")
+
+licenses += ("WTFPL", url("http://www.wtfpl.net"))
+
+bintrayOrganization := Some("danslapman")
+
+bintrayReleaseOnPublish in ThisBuild := false

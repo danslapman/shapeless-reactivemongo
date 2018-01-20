@@ -1,8 +1,8 @@
-reactivemongo-shapeless [![Release](https://jitpack.io/v/danslapman/reactivemongo-shapeless.svg)](https://jitpack.io/#danslapman/reactivemongo-shapeless)
+shapeless-reactivemongo
 =========
 **reactivemongo-shapeless** provides support for [shapeless](https://github.com/milessabin/shapeless)'s extensible records for ReactiveMongo
 
-Using **reactivemongo-shapeless** is pretty simple:
+Using **shapeless-reactivemongo** is pretty simple:
 ```scala
 import reactivemongo.bson._
 import shapeless._
@@ -47,10 +47,3 @@ println(book)
 ```
 
 Of course, it all work with serializers as well.
-
-reactivemongo-shapeless is available via jitpack:
-```
-    resolvers += "jitpack" at "https://jitpack.io"
-
-    libraryDependencies += "com.github.danslapman" %% "reactivemongo-shapeless" % "{version}"
-```
