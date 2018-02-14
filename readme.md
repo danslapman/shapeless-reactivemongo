@@ -47,3 +47,10 @@ println(book)
 ```
 
 Of course, it all work with serializers as well.
+
+shapeless-reactivemongo is available via bintray:
+```
+    resolvers += Resolver.bintrayRepo("danslapman", "maven")
+
+    libraryDependencies += "danslapman" %% "shapeless-reactivemongo" % "{version}"
+```

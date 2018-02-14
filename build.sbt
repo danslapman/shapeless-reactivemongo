@@ -16,7 +16,7 @@ scalacOptions ++= {
 }
 
 libraryDependencies ++= Seq(
-  "com.chuusai" %% "shapeless" % "2.3.2",
+  "com.chuusai" %% "shapeless" % "2.3.3",
   "org.reactivemongo" %% "reactivemongo-bson" % "0.12.7",
   "org.scalatest" %% "scalatest" % "3.0.4" % Test
 )
