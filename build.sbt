@@ -2,11 +2,11 @@ name := "shapeless-reactivemongo"
 
 organization := "danslapman"
 
-version := "1.0"
+version := "2.0-SNAPSHOT"
 
-scalaVersion := "2.12.4"
+scalaVersion := "2.12.6"
 
-crossScalaVersions := Seq("2.11.12", "2.12.4")
+crossScalaVersions := Seq("2.11.12", "2.12.6")
 
 scalacOptions ++= {
   CrossVersion.partialVersion(scalaVersion.value) match {
@@ -17,8 +17,8 @@ scalacOptions ++= {
 
 libraryDependencies ++= Seq(
   "com.chuusai" %% "shapeless" % "2.3.3",
-  "org.reactivemongo" %% "reactivemongo-bson" % "0.13.0",
-  "org.scalatest" %% "scalatest" % "3.0.4" % Test
+  "org.reactivemongo" %% "reactivemongo-bson" % "0.15.0",
+  "org.scalatest" %% "scalatest" % "3.0.5" % Test
 )
 
 lazy val `shapeless-reactivemongo` = project in file(".")
