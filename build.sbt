@@ -2,11 +2,11 @@ name := "shapeless-reactivemongo"
 
 organization := "danslapman"
 
-version := "1.1-SNAPSHOT"
+version := "1.0.15"
 
-scalaVersion := "2.12.6"
+scalaVersion := "2.12.7"
 
-crossScalaVersions := Seq("2.11.12", "2.12.6")
+crossScalaVersions := Seq("2.11.12", "2.12.7")
 
 scalacOptions ++= {
   CrossVersion.partialVersion(scalaVersion.value) match {
