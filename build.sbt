@@ -2,7 +2,7 @@ name := "shapeless-reactivemongo"
 
 organization := "danslapman"
 
-version := "1.0.15"
+version := "1.0.16"
 
 scalaVersion := "2.12.7"
 
@@ -17,7 +17,7 @@ scalacOptions ++= {
 
 libraryDependencies ++= Seq(
   "com.chuusai" %% "shapeless" % "2.3.3",
-  "org.reactivemongo" %% "reactivemongo-bson" % "0.15.0",
+  "org.reactivemongo" %% "reactivemongo-bson" % "0.16.0",
   "org.scalatest" %% "scalatest" % "3.0.5" % Test
 )
 
