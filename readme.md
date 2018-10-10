@@ -1,5 +1,5 @@
-shapeless-reactivemongo
-=========
+shapeless-reactivemongo [ ![Download](https://api.bintray.com/packages/danslapman/maven/shapeless-reactivemongo/images/download.svg) ](https://bintray.com/danslapman/maven/shapeless-reactivemongo/_latestVersion)
+=======================
 **reactivemongo-shapeless** provides support for [shapeless](https://github.com/milessabin/shapeless)'s extensible records for ReactiveMongo
 
 Using **shapeless-reactivemongo** is pretty simple:
